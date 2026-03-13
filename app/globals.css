@@ -1,26 +1,134 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand palette */
+  --navy: #0A1628;
+  --navy-800: #0D1E35;
+  --navy-700: #142540;
+  --gold: #C9A96E;
+  --gold-light: #D9C090;
+  --teal: #0ABFBC;
+  --teal-dark: #089997;
+  --sand: #FAFAF8;
+  --sand-dark: #F0EDE8;
+  --coral: #FF6B6B;
+  --coral-dark: #E85555;
+
+  /* shadcn semantic tokens */
+  --background: var(--sand);
+  --foreground: var(--navy);
+  --card: #FFFFFF;
+  --card-foreground: var(--navy);
+  --popover: #FFFFFF;
+  --popover-foreground: var(--navy);
+  --primary: var(--gold);
+  --primary-foreground: var(--navy);
+  --secondary: var(--sand-dark);
+  --secondary-foreground: var(--navy);
+  --muted: var(--sand-dark);
+  --muted-foreground: #8A7E6E;
+  --accent: var(--teal);
+  --accent-foreground: #FFFFFF;
+  --destructive: var(--coral);
+  --destructive-foreground: #FFFFFF;
+  --border: #E8E0D4;
+  --input: #E8E0D4;
+  --ring: var(--gold);
+  --radius: 0.75rem;
 }
 
 @theme inline {
+  /* shadcn → Tailwind v4 color bridge */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand tokens directly usable as Tailwind classes */
+  --color-navy: var(--navy);
+  --color-navy-800: var(--navy-800);
+  --color-navy-700: var(--navy-700);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-teal: var(--teal);
+  --color-teal-dark: var(--teal-dark);
+  --color-sand: var(--sand);
+  --color-sand-dark: var(--sand-dark);
+  --color-coral: var(--coral);
+  --color-coral-dark: var(--coral-dark);
+
+  /* Fonts */
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+
+  /* Border radius scale */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+
+  /* Keyframe animations */
+  --animate-fade-up: fadeUp 0.6s ease-out forwards;
+  --animate-fade-in: fadeIn 0.4s ease-out forwards;
+  --animate-bounce-slow: bounceSlow 2s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+/* Base resets */
+*,
+*::before,
+*::after {
+  border-color: var(--border);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--sand);
+  color: var(--navy);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+/* Utility: hide scrollbar but allow scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
