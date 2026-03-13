@@ -5,6 +5,7 @@ import { Anchor, Clock, Check, MapPin, ChevronRight, ArrowLeft } from "lucide-re
 import { Button } from "@/components/ui/button"
 import { groupTrips } from "@/lib/data"
 import { ImageGallery } from "@/components/ui/ImageGallery"
+import { ServiceTestimonials } from "@/components/shared/ServiceTestimonials"
 
 export async function generateMetadata({
   params,
@@ -133,7 +134,7 @@ export default async function GroupTripDetailPage({
 
             {/* Right: image */}
             <div className="relative">
-              <div className="relative h-72 sm:h-96 lg:h-[460px] rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative h-72 sm:h-96 lg:h-115 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src={trip.image}
                   alt={trip.title}
@@ -189,6 +190,8 @@ export default async function GroupTripDetailPage({
           </div>
         </div>
       </div>
+
+      <ServiceTestimonials serviceId={trip.id} />
 
       {/* ── CTA ── */}
       <div className="bg-navy py-16 px-4 sm:px-6 lg:px-8 text-center relative overflow-hidden">

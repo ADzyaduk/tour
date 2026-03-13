@@ -1,11 +1,22 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Star } from "lucide-react"
 import { motion } from "framer-motion"
 import { fadeUpVariants, staggerContainer } from "@/lib/animations"
 import { testimonials } from "@/lib/data"
 
+function pickRandom4() {
+  return [...testimonials].sort(() => Math.random() - 0.5).slice(0, 4)
+}
+
 export function Testimonials() {
+  const [items, setItems] = useState(() => testimonials.slice(0, 4))
+
+  useEffect(() => {
+    setItems(pickRandom4())
+  }, [])
+
   return (
     <section className="py-20 lg:py-28 bg-sand-dark overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,7 +48,7 @@ export function Testimonials() {
 
         {/* Scrollable on mobile, grid on desktop */}
         <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 lg:grid lg:grid-cols-4 lg:overflow-visible">
-          {testimonials.map((t, i) => (
+          {items.map((t, i) => (
             <motion.div
               key={t.id}
               variants={fadeUpVariants}

@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { yachts, type Yacht } from "@/lib/data"
 import { ImageGallery } from "@/components/ui/ImageGallery"
+import { ServiceTestimonials } from "@/components/shared/ServiceTestimonials"
 import { Button } from "@/components/ui/button"
 import { Check, Anchor, Users, Ruler, ArrowLeft, Phone } from "lucide-react"
 
@@ -178,6 +179,8 @@ export default async function YachtDetailPage({
           </div>
         </div>
       </section>
+
+      <ServiceTestimonials serviceId={yacht.id} />
 
       {/* ── CTA ──────────────────────────────────────────── */}
       <section className="bg-navy py-14 px-4 sm:px-6 lg:px-8">

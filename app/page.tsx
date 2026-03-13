@@ -3,6 +3,7 @@ import { FeaturedExcursions } from "@/components/home/FeaturedExcursions"
 import { YachtShowcase } from "@/components/home/YachtShowcase"
 import { FeaturedGroupTrips } from "@/components/home/FeaturedGroupTrips"
 import { Testimonials } from "@/components/home/Testimonials"
+import { LeaveReview } from "@/components/home/LeaveReview"
 import { CTABanner } from "@/components/home/CTABanner"
 
 export default function HomePage() {
@@ -13,6 +14,7 @@ export default function HomePage() {
       <YachtShowcase />
       <FeaturedGroupTrips />
       <Testimonials />
+      <LeaveReview />
       <CTABanner />
     </main>
   )

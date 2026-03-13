@@ -5,6 +5,7 @@ import { Clock, MapPin, Users, Star, Check, ArrowLeft, ChevronRight } from "luci
 import { Button } from "@/components/ui/button"
 import { excursions } from "@/lib/data"
 import { ImageGallery } from "@/components/ui/ImageGallery"
+import { ServiceTestimonials } from "@/components/shared/ServiceTestimonials"
 
 export async function generateMetadata({
   params,
@@ -207,6 +208,8 @@ export default async function ExcursionDetailPage({
           </div>
         </div>
       </div>
+
+      <ServiceTestimonials serviceId={excursion.id} />
 
       {/* ── CTA ── */}
       <div className="bg-navy py-16 px-4 sm:px-6 lg:px-8 text-center relative overflow-hidden">

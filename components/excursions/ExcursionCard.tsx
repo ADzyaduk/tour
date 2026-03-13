@@ -101,9 +101,6 @@ export function ExcursionCard({ excursion, index = 0 }: ExcursionCardProps) {
             <Users className="w-3.5 h-3.5 text-teal" />
             до {excursion.maxPeople} чел
           </span>
-          <span className="text-muted-foreground hidden sm:inline">
-            ({excursion.reviewCount} отзывов)
-          </span>
         </div>
 
         {/* Footer: price + CTA */}

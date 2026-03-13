@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { CheckCircle, Loader2, Send } from "lucide-react"
+import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   Form,
@@ -54,17 +54,49 @@ export function ContactForm() {
     },
   })
 
-  async function onSubmit(_data: ContactFormValues) {
+  async function onSubmit(data: ContactFormValues) {
     setState("submitting")
-    // Simulate API call
-    await new Promise((r) => setTimeout(r, 1600))
-    setState("success")
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+      const json = await res.json()
+      setState(json.ok ? "success" : "error")
+    } catch {
+      setState("error")
+    }
   }
 
   return (
     <div className="relative">
       <AnimatePresence mode="wait">
-        {state === "success" ? (
+        {state === "error" ? (
+          <motion.div
+            key="error"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col items-center text-center py-12 px-6"
+          >
+            <div className="w-16 h-16 rounded-full bg-coral/15 flex items-center justify-center mb-5">
+              <AlertCircle className="w-8 h-8 text-coral" />
+            </div>
+            <h3 className="font-display text-3xl font-semibold text-navy mb-2">
+              Ошибка отправки
+            </h3>
+            <p className="text-muted-foreground max-w-sm leading-relaxed mb-6">
+              Не удалось отправить сообщение. Попробуйте ещё раз или позвоните нам напрямую.
+            </p>
+            <button
+              onClick={() => setState("idle")}
+              className="text-teal text-sm underline underline-offset-2 hover:text-teal-dark transition-colors"
+            >
+              Попробовать снова
+            </button>
+          </motion.div>
+        ) : state === "success" ? (
           <motion.div
             key="success"
             initial={{ opacity: 0, scale: 0.95 }}
