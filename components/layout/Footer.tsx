@@ -1,14 +1,6 @@
 import Link from "next/link"
-import {
-  Anchor,
-  Instagram,
-  Facebook,
-  Twitter,
-  MapPin,
-  Phone,
-  Mail,
-  ArrowRight,
-} from "lucide-react"
+import { Anchor, MapPin, Phone, Mail, ArrowRight } from "lucide-react"
+import { SocialLinks } from "@/components/shared/SocialLinks"
 
 export function Footer() {
   return (
@@ -30,22 +22,7 @@ export function Footer() {
               Экскурсии по Сочи и Абхазии, аренда яхт и морские прогулки на черноморском побережье.
             </p>
             {/* Socials */}
-            <div className="flex items-center gap-3">
-              {[
-                { Icon: Instagram, href: "#", label: "Instagram" },
-                { Icon: Facebook, href: "#", label: "Facebook" },
-                { Icon: Twitter, href: "#", label: "Twitter" },
-              ].map(({ Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-white/50 hover:text-gold hover:border-gold/40 transition-all"
-                >
-                  <Icon className="w-4 h-4" />
-                </a>
-              ))}
-            </div>
+            <SocialLinks />
           </div>
 
           {/* Column 2: Navigation */}

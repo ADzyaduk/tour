@@ -14,7 +14,6 @@ export interface Excursion {
   reviewCount: number
   maxPeople: number
   city?: string
-  featured?: boolean
   isFeatured?: boolean
   featuredLabel?: string
 }
@@ -44,7 +43,7 @@ export interface Yacht {
   images: string[]
   length: number
   capacity: number
-  pricePerDay: number
+  pricePerHour: number
   features: string[]
   highlights: string[]
   type: "sailing" | "motor" | "catamaran"
@@ -65,12 +64,18 @@ export const excursions: Excursion[] = [
       "Из Адлера: взрослый 2000 ₽, дети 1600 ₽",
       "Дополнительно: пещера 700 ₽, дача Сталина 400 ₽",
     ],
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+    image: "/img/excu/abhzolcol/Озеро Рица - 1280x853.jpg",
     images: [
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=85",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
-      "https://images.unsplash.com/photo-1551524164-687a55dd1126?w=800&q=80",
-      "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
+      "/img/excu/abhzolcol/Озеро Рица - 1280x853.jpg",
+      "/img/excu/abhzolcol/Монастырь в Абхазии - 1280x853.JPG",
+      "/img/excu/abhzolcol/Юпшарское ущелье в Абхазии - 1280x853.jpg",
+      "/img/excu/abhzolcol/photo_2026-03-13_09-01-56.jpg",
+      "/img/excu/abhzolcol/photo_2026-03-13_09-02-35.jpg",
+      "/img/excu/abhzolcol/photo_2026-03-12_22-23-02.jpg",
+      "/img/excu/abhzolcol/IMG-20230705-WA0116.jpg",
+      "/img/excu/abhzolcol/IMG-20230705-WA0119.jpg",
+      "/img/excu/abhzolcol/IMG-20250311-WA0014.jpg",
+      "/img/excu/abhzolcol/IMG-20230630-WA0043.jpg",
     ],
     duration: "12–14 часов",
     durationHours: 13,
@@ -82,7 +87,6 @@ export const excursions: Excursion[] = [
     city: "Сочи",
     isFeatured: true,
     featuredLabel: "Хит сезона",
-    featured: true,
   },
   {
     id: "krasnaya-polyana-5-v-1",
@@ -98,12 +102,12 @@ export const excursions: Excursion[] = [
       "Из Сочи: взрослый/детский 800 ₽",
       "Из Адлера: взрослый/детский 500 ₽",
     ],
-    image: "https://images.unsplash.com/photo-1551524164-687a55dd1126?w=800&q=80",
+    image: "/img/excu/kraspol/Роза Хутор - 1280x853.jpg",
     images: [
-      "https://images.unsplash.com/photo-1551524164-687a55dd1126?w=1200&q=85",
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
-      "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
+      "/img/excu/kraspol/Роза Хутор - 1280x853.jpg",
+      "/img/excu/kraspol/Роза Хутор, Сочи, Горнолыжный курорт - 1280x960.jpg",
+      "/img/excu/kraspol/photo_2026-03-12_22-31-12.jpg",
+      "/img/excu/kraspol/IMG-20230703-WA0005.jpg",
     ],
     duration: "10–12 часов",
     durationHours: 11,
@@ -115,7 +119,6 @@ export const excursions: Excursion[] = [
     city: "Сочи",
     isFeatured: true,
     featuredLabel: "Топ выбор",
-    featured: true,
   },
   {
     id: "33-vodopada-adygejskoe-shou",
@@ -131,11 +134,15 @@ export const excursions: Excursion[] = [
       "Вт/Чт без застолья: взрослый 2100 ₽, дети 1800 ₽",
       "Ср/Сб с застольем: взрослый 2500 ₽, дети 2200 ₽",
     ],
-    image: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800&q=80",
+    image: "/img/excu/33/33-водопада-1.webp",
     images: [
-      "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1200&q=85",
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
+      "/img/excu/33/33-водопада-1.webp",
+      "/img/excu/33/33-водопада-3.webp",
+      "/img/excu/33/33-водопада-14.webp",
+      "/img/excu/33/photo_2026-03-14_11-59-51.jpg",
+      "/img/excu/33/photo_2026-03-15_10-22-11.jpg",
+      "/img/excu/33/photo_2026-02-11_22-29-37.jpg",
+      "/img/excu/33/IMG-20230705-WA0157.jpg",
     ],
     duration: "9–11 часов",
     durationHours: 10,
@@ -161,12 +168,11 @@ export const excursions: Excursion[] = [
       "Взрослый билет: 1200 ₽",
       "Детский билет (от 5 лет): 1200 ₽",
     ],
-    image: "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&q=80",
+    image: "/img/excu/sochimacesta/Морской вокзал в Сочи вечером - 1280x853.jpg",
     images: [
-      "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1200&q=85",
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
-      "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
+      "/img/excu/sochimacesta/Морской вокзал в Сочи вечером - 1280x853.jpg",
+      "/img/excu/busiki/IMG-20230630-WA0046.jpg",
+      "/img/excu/busiki/IMG-20250311-WA0003.jpg",
     ],
     duration: "7 часов",
     durationHours: 7,
@@ -178,7 +184,6 @@ export const excursions: Excursion[] = [
     city: "Сочи",
     isFeatured: true,
     featuredLabel: "Популярная",
-    featured: true,
   },
   {
     id: "skajpark",
@@ -277,11 +282,10 @@ export const excursions: Excursion[] = [
       "Шоу фонтанов",
       "Вечерний формат",
     ],
-    image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
+    image: "/img/excu/olimppark/Олимпийский парк Сочи - 1280x853.jpg",
     images: [
-      "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200&q=85",
-      "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&q=80",
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+      "/img/excu/olimppark/Олимпийский парк Сочи - 1280x853.jpg",
+      "/img/excu/olimppark/IMG-20230703-WA0016.jpg",
     ],
     duration: "4–5 часов",
     durationHours: 4.5,
@@ -305,12 +309,9 @@ export const excursions: Excursion[] = [
       "Панорамные точки",
       "Сопровождение гида",
     ],
-    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
+    image: "/img/excu/sochiakhun/photo_2026-02-11_22-32-45.jpg",
     images: [
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=85",
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-      "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+      "/img/excu/sochiakhun/photo_2026-02-11_22-32-45.jpg",
     ],
     duration: "6–8 часов",
     durationHours: 7,
@@ -342,7 +343,7 @@ export const yachts: Yacht[] = [
     ],
     length: 42,
     capacity: 6,
-    pricePerDay: 58000,
+    pricePerHour: 58000,
     features: [
       "Кондиционер",
       "Солнечная палуба",
@@ -378,7 +379,7 @@ export const yachts: Yacht[] = [
     ],
     length: 55,
     capacity: 10,
-    pricePerDay: 145000,
+    pricePerHour: 145000,
     features: [
       "Флайбридж",
       "Гидроциклы",
@@ -415,7 +416,7 @@ export const yachts: Yacht[] = [
     ],
     length: 48,
     capacity: 12,
-    pricePerDay: 95000,
+    pricePerHour: 95000,
     features: [
       "4 каюты",
       "Сетка-гамак",
@@ -437,7 +438,7 @@ export const yachts: Yacht[] = [
   {
     id: "y4",
     name: "Olympus",
-    nameRu: "Суперяхта",
+    nameRu: "Моторная яхта",
     description:
       "Флагманская суперяхта 72 фута с полным экипажем, джакузи, тренажёрным залом и вертолётной площадкой.",
     fullDescription:
@@ -452,7 +453,7 @@ export const yachts: Yacht[] = [
     ],
     length: 72,
     capacity: 14,
-    pricePerDay: 420000,
+    pricePerHour: 420000,
     features: [
       "Полный экипаж",
       "Джакузи",
@@ -490,7 +491,7 @@ export const yachts: Yacht[] = [
     ],
     length: 38,
     capacity: 4,
-    pricePerDay: 35000,
+    pricePerHour: 35000,
     features: [
       "Классический дизайн",
       "Автопилот",
@@ -525,7 +526,7 @@ export const yachts: Yacht[] = [
     ],
     length: 60,
     capacity: 10,
-    pricePerDay: 175000,
+    pricePerHour: 175000,
     features: [
       "Панорамный салон",
       "4 каюты с санузлами",

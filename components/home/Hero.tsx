@@ -20,8 +20,8 @@ export function Hero() {
         className="absolute inset-0 scale-110 will-change-transform"
       >
         <Image
-          src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1600&q=85"
-          alt="Mediterranean coast"
+          src="/img/hero.jpg"
+          alt="Черноморское побережье"
           fill
           priority
           className="object-cover"

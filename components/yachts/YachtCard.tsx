@@ -89,7 +89,7 @@ export function YachtCard({ yacht, index = 0 }: YachtCardProps) {
             {
               Icon: Banknote,
               label: "Аренда от",
-              value: `${yacht.pricePerDay.toLocaleString("ru-RU")} ₽`,
+              value: `${yacht.pricePerHour.toLocaleString("ru-RU")} ₽`,
             },
           ].map(({ Icon, label, value }) => (
             <div
@@ -129,9 +129,9 @@ export function YachtCard({ yacht, index = 0 }: YachtCardProps) {
         <div className="mt-auto flex items-center justify-between gap-3">
           <div>
             <span className="text-navy font-semibold text-xl">
-              {yacht.pricePerDay.toLocaleString("ru-RU")} ₽
+              {yacht.pricePerHour.toLocaleString("ru-RU")} ₽
             </span>
-            <span className="text-muted-foreground text-xs ml-1">/ сутки</span>
+            <span className="text-muted-foreground text-xs ml-1">/ час</span>
           </div>
           <Button
             asChild

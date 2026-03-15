@@ -1,4 +1,5 @@
 import { ContactForm } from "@/components/contacts/ContactForm"
+import { SocialLinks } from "@/components/shared/SocialLinks"
 import { MapPin, Phone, Mail, Clock } from "lucide-react"
 
 export const metadata = {
@@ -44,23 +45,27 @@ export default function ContactsPage() {
                     Icon: MapPin,
                     label: "Адрес",
                     value: "Адлер, Морской бульвар, 1\nПорт Имеретинский",
+                    href: undefined,
                   },
                   {
                     Icon: Phone,
                     label: "Телефон",
                     value: "+7 988 123-45-67",
+                    href: "tel:+79881234567",
                   },
                   {
                     Icon: Mail,
                     label: "Email",
                     value: "hello@aquavista.ru",
+                    href: "mailto:hello@aquavista.ru",
                   },
                   {
                     Icon: Clock,
                     label: "Режим работы",
-                    value: "Пн–Сб: 9:00 – 20:00\nВс: 10:00 – 18:00",
+                    value: "Ежедневно: 9:00 – 21:00",
+                    href: undefined,
                   },
-                ].map(({ Icon, label, value }) => (
+                ].map(({ Icon, label, value, href }) => (
                   <li key={label} className="flex items-start gap-3.5">
                     <div className="w-9 h-9 rounded-xl bg-teal/10 flex items-center justify-center shrink-0 mt-0.5">
                       <Icon className="w-4 h-4 text-teal" />
@@ -69,13 +74,32 @@ export default function ContactsPage() {
                       <div className="text-xs text-muted-foreground mb-0.5 tracking-wide uppercase">
                         {label}
                       </div>
-                      <div className="text-navy text-sm font-medium whitespace-pre-line leading-relaxed">
-                        {value}
-                      </div>
+                      {href ? (
+                        <a
+                          href={href}
+                          className="text-navy text-sm font-medium whitespace-pre-line leading-relaxed hover:text-teal transition-colors"
+                        >
+                          {value}
+                        </a>
+                      ) : (
+                        <div className="text-navy text-sm font-medium whitespace-pre-line leading-relaxed">
+                          {value}
+                        </div>
+                      )}
                     </div>
                   </li>
                 ))}
               </ul>
+
+              {/* Social links */}
+              <div className="pt-2">
+                <div className="text-xs text-muted-foreground mb-3 tracking-wide uppercase">
+                  Мы в мессенджерах
+                </div>
+                <SocialLinks
+                  buttonClassName="w-9 h-9 rounded-full border border-border flex items-center justify-center text-navy/40 hover:text-teal hover:border-teal/40 transition-all"
+                />
+              </div>
             </div>
 
             {/* Map placeholder */}

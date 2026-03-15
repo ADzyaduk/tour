@@ -10,7 +10,17 @@ const subjectLabels: Record<string, string> = {
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, phone, subject, message } = await req.json()
+    const body = await req.json()
+    const { name, email, phone, subject, message } = body
+
+    if (
+      typeof name !== "string" || name.trim().length < 2 ||
+      typeof email !== "string" || !email.includes("@") ||
+      typeof subject !== "string" || subject.trim().length === 0 ||
+      typeof message !== "string" || message.trim().length < 10 || message.length > 1000
+    ) {
+      return NextResponse.json({ ok: false, error: "Invalid input" }, { status: 400 })
+    }
 
     const token = process.env.TELEGRAM_BOT_TOKEN
     const chatId = process.env.TELEGRAM_CHAT_ID
@@ -20,18 +30,18 @@ export async function POST(req: NextRequest) {
     }
 
     const subjectLabel = subjectLabels[subject] ?? subject
-    const phoneStr = phone ? `\n📞 *Телефон:* ${phone}` : ""
+    const phoneStr = phone && typeof phone === "string" ? `\nТелефон: ${phone}` : ""
 
     const text = [
-      "📬 *Новая заявка с сайта AquaVista*",
+      "Новая заявка с сайта AquaVista",
       "",
-      `👤 *Имя:* ${name}`,
-      `📧 *Email:* ${email}`,
+      `Имя: ${name.trim()}`,
+      `Email: ${email.trim()}`,
       phoneStr,
-      `📌 *Тема:* ${subjectLabel}`,
+      `Тема: ${subjectLabel}`,
       "",
-      `💬 *Сообщение:*`,
-      message,
+      "Сообщение:",
+      message.trim(),
     ]
       .filter((line) => line !== undefined)
       .join("\n")
@@ -42,7 +52,6 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         chat_id: chatId,
         text,
-        parse_mode: "Markdown",
       }),
     })
 

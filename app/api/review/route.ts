@@ -2,7 +2,16 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, rating, text, service } = await req.json()
+    const body = await req.json()
+    const { name, rating, text, service } = body
+
+    if (
+      typeof name !== "string" || name.trim().length < 2 ||
+      typeof text !== "string" || text.trim().length < 10 || text.length > 1000 ||
+      typeof rating !== "number" || !Number.isFinite(rating)
+    ) {
+      return NextResponse.json({ ok: false, error: "Invalid input" }, { status: 400 })
+    }
 
     const token = process.env.TELEGRAM_BOT_TOKEN
     const chatId = process.env.TELEGRAM_REVIEWS_CHAT_ID ?? process.env.TELEGRAM_CHAT_ID
@@ -11,18 +20,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: "Bot not configured" }, { status: 500 })
     }
 
-    const stars = "⭐".repeat(Math.min(5, Math.max(1, Number(rating))))
-    const serviceStr = service ? `\n🚤 *Услуга:* ${service}` : ""
+    const clampedRating = Math.min(5, Math.max(1, Math.round(rating)))
+    const stars = "⭐".repeat(clampedRating)
+    const serviceStr = service && typeof service === "string" ? `\nУслуга: ${service}` : ""
 
     const message = [
-      `${stars} *Новый отзыв на AquaVista*`,
+      `${stars} Новый отзыв на AquaVista`,
       "",
-      `👤 *Имя:* ${name}`,
-      `⭐ *Оценка:* ${rating}/5`,
+      `Имя: ${name.trim()}`,
+      `Оценка: ${clampedRating}/5`,
       serviceStr,
       "",
-      `💬 *Отзыв:*`,
-      text,
+      "Отзыв:",
+      text.trim(),
     ]
       .filter((line) => line !== undefined)
       .join("\n")
@@ -33,7 +43,6 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         chat_id: chatId,
         text: message,
-        parse_mode: "Markdown",
       }),
     })
 

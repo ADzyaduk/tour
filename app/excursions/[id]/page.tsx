@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Clock, MapPin, Users, Star, Check, ArrowLeft, ChevronRight } from "lucide-react"
+import { BookingButton } from "@/components/shared/BookingButton"
 import { Button } from "@/components/ui/button"
 import { excursions } from "@/lib/data"
 import { ImageGallery } from "@/components/ui/ImageGallery"
@@ -129,13 +130,13 @@ export default async function ExcursionDetailPage({
 
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-3">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-coral hover:bg-coral-dark text-white border-0 font-medium px-8 h-12 shadow-xl shadow-coral/30 hover:shadow-coral/50 transition-all"
+                <BookingButton
+                  serviceName={excursion.title}
+                  serviceType="excursion"
+                  className="bg-coral hover:bg-coral-dark text-white border-0 font-medium px-8 h-12 shadow-xl shadow-coral/30 hover:shadow-coral/50 transition-all rounded-lg text-sm"
                 >
-                  <Link href="/contacts">Забронировать</Link>
-                </Button>
+                  Забронировать
+                </BookingButton>
                 <Button
                   asChild
                   size="lg"
@@ -224,13 +225,13 @@ export default async function ExcursionDetailPage({
           <p className="text-white/55 mb-8 max-w-md mx-auto leading-relaxed">
             Оставьте заявку — мы подтвердим бронирование и ответим на все вопросы.
           </p>
-          <Button
-            asChild
-            size="lg"
-            className="bg-coral hover:bg-coral-dark text-white border-0 font-medium px-10 h-12 shadow-xl shadow-coral/30 hover:shadow-coral/50 transition-all"
+          <BookingButton
+            serviceName={excursion.title}
+            serviceType="excursion"
+            className="bg-coral hover:bg-coral-dark text-white border-0 font-medium px-10 h-12 shadow-xl shadow-coral/30 hover:shadow-coral/50 transition-all rounded-lg text-sm"
           >
-            <Link href="/contacts">Забронировать экскурсию</Link>
-          </Button>
+            Забронировать экскурсию
+          </BookingButton>
         </div>
       </div>
     </main>

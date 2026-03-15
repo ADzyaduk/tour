@@ -219,7 +219,7 @@ export function ContactForm() {
                               Бронирование экскурсии
                             </SelectItem>
                             <SelectItem value="yacht">Аренда яхты</SelectItem>
-                            <SelectItem value="private">
+                            <SelectItem value="event">
                               Частное мероприятие
                             </SelectItem>
                             <SelectItem value="other">Другое</SelectItem>

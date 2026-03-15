@@ -6,6 +6,7 @@ import { ImageGallery } from "@/components/ui/ImageGallery"
 import { ServiceTestimonials } from "@/components/shared/ServiceTestimonials"
 import { Button } from "@/components/ui/button"
 import { Check, Anchor, Users, Ruler, ArrowLeft, Phone } from "lucide-react"
+import { BookingButton } from "@/components/shared/BookingButton"
 
 const typeLabel: Record<Yacht["type"], string> = {
   sailing: "Парусная яхта",
@@ -98,19 +99,20 @@ export default async function YachtDetailPage({
                   Аренда от
                 </p>
                 <p className="font-display text-4xl font-semibold text-white leading-none">
-                  {yacht.pricePerDay.toLocaleString("ru-RU")} ₽
+                  {yacht.pricePerHour.toLocaleString("ru-RU")} ₽
                 </p>
-                <p className="text-white/45 text-sm mt-1">/ сутки</p>
+                <p className="text-white/45 text-sm mt-1">/ час</p>
               </div>
 
               {/* Buttons */}
               <div className="flex flex-col gap-2 w-full lg:w-auto">
-                <Button
-                  asChild
-                  className="bg-coral hover:bg-coral-dark text-white border-0 h-11 px-8 font-medium shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all w-full lg:w-auto"
+                <BookingButton
+                  serviceName={yacht.name}
+                  serviceType="yacht"
+                  className="bg-coral hover:bg-coral-dark text-white border-0 h-11 px-8 font-medium shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all w-full lg:w-auto rounded-lg text-sm"
                 >
-                  <Link href="/contacts">Забронировать</Link>
-                </Button>
+                  Забронировать
+                </BookingButton>
                 <Button
                   asChild
                   variant="outline"
@@ -195,13 +197,13 @@ export default async function YachtDetailPage({
             <span className="text-gold italic">{yacht.name}</span>?
           </h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button
-              asChild
-              size="lg"
-              className="bg-coral hover:bg-coral-dark text-white border-0 h-12 px-10 font-medium shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all"
+            <BookingButton
+              serviceName={yacht.name}
+              serviceType="yacht"
+              className="bg-coral hover:bg-coral-dark text-white border-0 h-12 px-10 font-medium shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all rounded-lg text-sm"
             >
-              <Link href="/contacts">Оставить заявку</Link>
-            </Button>
+              Оставить заявку
+            </BookingButton>
             <a
               href="tel:+79881234567"
               className="flex items-center gap-2 text-white/60 hover:text-white text-sm transition-colors"
