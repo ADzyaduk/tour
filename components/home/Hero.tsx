@@ -83,8 +83,8 @@ export function Hero() {
         >
           {[
             { value: "9+", label: "Экскурсий" },
-            { value: "3", label: "Яхты" },
-            { value: "500+", label: "Гостей" },
+            { value: "15", label: "Яхт" },
+            { value: "1000+", label: "Гостей" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="font-display text-2xl font-semibold text-gold">

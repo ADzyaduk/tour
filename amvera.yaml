@@ -1,0 +1,14 @@
+---
+meta:
+  environment: dockerfile
+  toolchain:
+    name: docker
+
+build:
+  dockerfilePath: Dockerfile
+
+run:
+  persistenceMount: /app/public
+  ports:
+    - port: 3000
+      protocol: HTTP

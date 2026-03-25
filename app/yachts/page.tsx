@@ -1,4 +1,4 @@
-import { YachtCard } from "@/components/yachts/YachtCard"
+import { YachtGrid } from "@/components/yachts/YachtGrid"
 import { CTABanner } from "@/components/home/CTABanner"
 import { GroupTripCard } from "@/components/group-trips/GroupTripCard"
 import { yachts, groupTrips } from "@/lib/data"
@@ -27,16 +27,16 @@ export default function YachtsPage() {
             Наш <span className="text-gold italic">флот</span>
           </h1>
           <p className="text-white/55 mt-4 max-w-lg mx-auto leading-relaxed">
-            Шесть тщательно отобранных яхт. Каждая — плавучий санктуарий,
+            15 яхт в двух портах — Адлер и Сочи. Каждая — плавучий санктуарий,
             готовый унести вас туда, куда зовёт море.
           </p>
 
           {/* Quick stats */}
           <div className="flex items-center justify-center gap-10 mt-10">
             {[
-              { value: "6", label: "Яхт" },
-              { value: "38–72", label: "Футов" },
-              { value: "4–14", label: "Гостей" },
+              { value: "15", label: "Яхт" },
+              { value: "7.7–21.6", label: "Метров" },
+              { value: "8–12", label: "Гостей" },
             ].map((s) => (
               <div key={s.label} className="text-center">
                 <div className="font-display text-3xl font-semibold text-gold">
@@ -51,13 +51,9 @@ export default function YachtsPage() {
         </div>
       </div>
 
-      {/* Grid */}
+      {/* Grid with port filter */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {yachts.map((yacht, i) => (
-            <YachtCard key={yacht.id} yacht={yacht} index={i} />
-          ))}
-        </div>
+        <YachtGrid yachts={yachts} />
       </div>
 
       {/* Group trips section */}

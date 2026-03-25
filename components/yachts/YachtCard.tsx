@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Anchor, Users, Ruler, Banknote, Check } from "lucide-react"
+import { Anchor, Users, Ruler, Banknote, Check, MapPin } from "lucide-react"
 import { motion } from "framer-motion"
 import { fadeUpVariants, imageZoom } from "@/lib/animations"
 import { Button } from "@/components/ui/button"
@@ -18,6 +18,11 @@ const typeLabel: Record<Yacht["type"], string> = {
   sailing: "Парусная",
   motor: "Моторная",
   catamaran: "Катамаран",
+}
+
+const portLabel: Record<Yacht["port"], string> = {
+  adler: "Адлер",
+  sochi: "Сочи",
 }
 
 interface YachtCardProps {
@@ -55,12 +60,16 @@ export function YachtCard({ yacht, index = 0 }: YachtCardProps) {
           </motion.div>
           <div className="absolute inset-0 bg-linear-to-t from-navy/60 via-transparent to-transparent pointer-events-none" />
 
-          {/* Type badge */}
-          <div className="absolute top-3 left-3">
+          {/* Type + port badges */}
+          <div className="absolute top-3 left-3 flex gap-1.5">
             <span
               className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border backdrop-blur-sm ${typeColors[yacht.type]}`}
             >
               {typeLabel[yacht.type]}
+            </span>
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium border backdrop-blur-sm bg-white/15 text-white border-white/30">
+              <MapPin className="w-3 h-3" />
+              {portLabel[yacht.port]}
             </span>
           </div>
 
@@ -83,7 +92,7 @@ export function YachtCard({ yacht, index = 0 }: YachtCardProps) {
         {/* Specs grid */}
         <div className="grid grid-cols-2 gap-3 mb-5">
           {[
-            { Icon: Ruler, label: "Длина", value: `${yacht.length} фут` },
+            { Icon: Ruler, label: "Длина", value: `${yacht.length} м` },
             { Icon: Users, label: "Гостей", value: `до ${yacht.capacity} чел` },
             { Icon: Anchor, label: "Тип", value: typeLabel[yacht.type] },
             {

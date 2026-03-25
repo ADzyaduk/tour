@@ -5,13 +5,18 @@ import { yachts, type Yacht } from "@/lib/data"
 import { ImageGallery } from "@/components/ui/ImageGallery"
 import { ServiceTestimonials } from "@/components/shared/ServiceTestimonials"
 import { Button } from "@/components/ui/button"
-import { Check, Anchor, Users, Ruler, ArrowLeft, Phone } from "lucide-react"
+import { Check, Anchor, Users, Ruler, ArrowLeft, Phone, MapPin } from "lucide-react"
 import { BookingButton } from "@/components/shared/BookingButton"
 
 const typeLabel: Record<Yacht["type"], string> = {
   sailing: "Парусная яхта",
   motor: "Моторная яхта",
   catamaran: "Катамаран",
+}
+
+const portLabel: Record<string, string> = {
+  adler: "Имеретинский порт, Адлер",
+  sochi: "Порт Сочи",
 }
 
 export async function generateMetadata({
@@ -74,7 +79,7 @@ export default async function YachtDetailPage({
               <div className="flex flex-wrap gap-2 mb-6">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/8 border border-white/12 text-white/80 text-sm">
                   <Ruler className="w-3.5 h-3.5 text-teal" />
-                  {yacht.length} фут
+                  {yacht.length} м
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/8 border border-white/12 text-white/80 text-sm">
                   <Users className="w-3.5 h-3.5 text-teal" />
@@ -84,6 +89,10 @@ export default async function YachtDetailPage({
                   <Anchor className="w-3.5 h-3.5 text-gold" />
                   {typeLabel[yacht.type]}
                 </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/8 border border-white/12 text-white/80 text-sm">
+                  <MapPin className="w-3.5 h-3.5 text-coral" />
+                  {portLabel[yacht.port]}
+                </span>
               </div>
 
               <p className="text-white/65 leading-relaxed max-w-xl">
@@ -92,7 +101,7 @@ export default async function YachtDetailPage({
             </div>
 
             {/* Right: price + CTA */}
-            <div className="lg:min-w-[240px] flex flex-col items-start lg:items-end gap-4">
+            <div className="lg:min-w-60 flex flex-col items-start lg:items-end gap-4">
               {/* Price card */}
               <div className="bg-white/6 border border-white/12 rounded-2xl px-6 py-5 text-left lg:text-right w-full lg:w-auto">
                 <p className="text-white/45 text-xs uppercase tracking-widest mb-1">

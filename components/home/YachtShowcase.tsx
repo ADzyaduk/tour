@@ -126,8 +126,8 @@ export function YachtShowcase() {
               className="relative h-80 sm:h-96 lg:h-130 rounded-2xl overflow-hidden"
             >
               <Image
-                src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=900&q=85"
-                alt="Luxury yacht on the Mediterranean"
+                src="/img/yachts/sochi/indigo/indigo1.webp"
+                alt="Парусная яхта Индиго в Сочи"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -147,7 +147,7 @@ export function YachtShowcase() {
                 Аренда от
               </div>
               <div className="font-display text-3xl font-semibold text-navy">
-                15 000 ₽
+                6 000 ₽
                 <span className="text-sm font-body text-muted-foreground ml-1">
                   / час
                 </span>
