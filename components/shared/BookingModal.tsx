@@ -29,12 +29,14 @@ export function BookingModal({
 }: BookingModalProps) {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
+  const [consent, setConsent] = useState(false)
   const [formState, setFormState] = useState<FormState>("idle")
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const reset = useCallback(() => {
     setName("")
     setPhone("")
+    setConsent(false)
     setFormState("idle")
     setErrors({})
   }, [])
@@ -63,6 +65,7 @@ export function BookingModal({
     const e: Record<string, string> = {}
     if (!name.trim() || name.trim().length < 2) e.name = "Введите имя (мин. 2 символа)"
     if (!phone.trim()) e.phone = "Введите номер телефона"
+    if (!consent) e.consent = "Необходимо ваше согласие"
     return e
   }
 
@@ -282,6 +285,36 @@ export function BookingModal({
                           style={{ color: "#0A1628" } as React.CSSProperties}
                         />
                         {errors.phone && <p className="text-xs mt-1" style={{ color: "#E05A3A" }}>{errors.phone}</p>}
+                      </div>
+
+                      {/* Consent */}
+                      <div>
+                        <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                          <span className="relative mt-0.5 shrink-0">
+                            <input
+                              type="checkbox"
+                              checked={consent}
+                              onChange={(e) => { setConsent(e.target.checked); setErrors(p => ({ ...p, consent: "" })) }}
+                              className="sr-only"
+                            />
+                            <span
+                              className="flex w-4 h-4 rounded-sm border items-center justify-center transition-all duration-150"
+                              style={{
+                                background: consent ? "#0ABFBC" : "#fff",
+                                borderColor: errors.consent ? "#E05A3A" : consent ? "#0ABFBC" : "#cbd5e1",
+                              }}
+                            >
+                              {consent && <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />}
+                            </span>
+                          </span>
+                          <span className="text-xs leading-relaxed" style={{ color: "#94a3b8" }}>
+                            Я согласен(а) на обработку персональных данных в соответствии с{" "}
+                            <a href="/privacy" target="_blank" rel="noopener" className="underline hover:opacity-80" style={{ color: "#0ABFBC" }}>
+                              Политикой конфиденциальности
+                            </a>
+                          </span>
+                        </label>
+                        {errors.consent && <p className="text-xs mt-1" style={{ color: "#E05A3A" }}>{errors.consent}</p>}
                       </div>
 
                       {/* Submit */}
