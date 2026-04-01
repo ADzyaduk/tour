@@ -257,6 +257,7 @@ export function BookingModal({
                         </label>
                         <input
                           type="text"
+                          name="name"
                           value={name}
                           onChange={(e) => { setName(e.target.value); setErrors(p => ({ ...p, name: "" })) }}
                           placeholder="Иван Иванов"
@@ -274,6 +275,7 @@ export function BookingModal({
                         </label>
                         <input
                           type="tel"
+                          name="tel"
                           value={phone}
                           onChange={(e) => { setPhone(e.target.value); setErrors(p => ({ ...p, phone: "" })) }}
                           placeholder="+7 900 000-00-00"
