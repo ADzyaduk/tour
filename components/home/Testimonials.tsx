@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Star } from "lucide-react"
 import { motion } from "framer-motion"
 import { fadeUpVariants, staggerContainer } from "@/lib/animations"
@@ -11,7 +11,11 @@ function pickRandom4() {
 }
 
 export function Testimonials() {
-  const [items] = useState(() => pickRandom4())
+  const [items, setItems] = useState(() => testimonials.slice(0, 4))
+
+  useEffect(() => {
+    setItems(pickRandom4())
+  }, [])
 
   return (
     <section className="py-20 lg:py-28 bg-sand-dark overflow-hidden">
