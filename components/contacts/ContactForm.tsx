@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { AlertCircle, CheckCircle, Loader2, Send } from "lucide-react"
+import { AlertCircle, CheckCircle, Loader2, Send, Check } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   Form,
@@ -27,13 +27,14 @@ import {
 
 const contactSchema = z.object({
   name: z.string().min(2, "Введите не менее 2 символов"),
-  email: z.string().email("Введите корректный email"),
-  phone: z.string().optional(),
+  email: z.string().email("Введите корректный email").optional().or(z.literal("")),
+  phone: z.string().min(1, "Введите номер телефона"),
   subject: z.string().min(1, "Выберите тему"),
   message: z
     .string()
     .min(10, "Сообщение должно содержать не менее 10 символов")
     .max(1000, "Сообщение не должно превышать 1000 символов"),
+  consent: z.literal(true, { errorMap: () => ({ message: "Необходимо ваше согласие" }) }),
 })
 
 type ContactFormValues = z.infer<typeof contactSchema>
@@ -51,6 +52,7 @@ export function ContactForm() {
       phone: "",
       subject: "",
       message: "",
+      consent: undefined as unknown as true,
     },
   })
 
@@ -126,7 +128,7 @@ export function ContactForm() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-5"
               >
-                {/* Name + Email */}
+                {/* Name + Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
@@ -149,16 +151,16 @@ export function ContactForm() {
                   />
                   <FormField
                     control={form.control}
-                    name="email"
+                    name="phone"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-navy text-sm font-medium">
-                          Email *
+                          Телефон *
                         </FormLabel>
                         <FormControl>
                           <Input
-                            type="email"
-                            placeholder="you@example.com"
+                            type="tel"
+                            placeholder="+7 988 123-45-67"
                             className="bg-sand border-border focus:border-teal h-11"
                             {...field}
                           />
@@ -169,23 +171,20 @@ export function ContactForm() {
                   />
                 </div>
 
-                {/* Phone + Subject */}
+                {/* Email + Subject */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
-                    name="phone"
+                    name="email"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-navy text-sm font-medium">
-                          Телефон{" "}
-                          <span className="text-muted-foreground font-normal">
-                            (необязательно)
-                          </span>
+                          Email
                         </FormLabel>
                         <FormControl>
                           <Input
-                            type="tel"
-                            placeholder="+7 988 123-45-67"
+                            type="email"
+                            placeholder="you@example.com"
                             className="bg-sand border-border focus:border-teal h-11"
                             {...field}
                           />
@@ -247,6 +246,42 @@ export function ContactForm() {
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage className="text-coral text-xs" />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Consent */}
+                <FormField
+                  control={form.control}
+                  name="consent"
+                  render={({ field, fieldState }) => (
+                    <FormItem>
+                      <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                        <span className="relative mt-0.5 shrink-0">
+                          <input
+                            type="checkbox"
+                            checked={!!field.value}
+                            onChange={(e) => field.onChange(e.target.checked || undefined)}
+                            className="sr-only"
+                          />
+                          <span
+                            className="flex w-4 h-4 rounded-sm border items-center justify-center transition-all duration-150"
+                            style={{
+                              background: field.value ? "#0ABFBC" : "#fff",
+                              borderColor: fieldState.error ? "#E05A3A" : field.value ? "#0ABFBC" : "#cbd5e1",
+                            }}
+                          >
+                            {field.value && <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />}
+                          </span>
+                        </span>
+                        <span className="text-xs text-navy/50 leading-relaxed">
+                          Я согласен(а) на обработку персональных данных в соответствии с{" "}
+                          <a href="/privacy" target="_blank" rel="noopener" className="text-teal underline hover:opacity-80">
+                            Политикой конфиденциальности
+                          </a>
+                        </span>
+                      </label>
                       <FormMessage className="text-coral text-xs" />
                     </FormItem>
                   )}
