@@ -113,7 +113,7 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/35">
           <span>© {new Date().getFullYear()} AquaVista. Все права защищены.</span>
           <div className="flex items-center gap-5">
-            <Link href="#" className="hover:text-white/60 transition-colors">
+            <Link href="/privacy" className="hover:text-white/60 transition-colors">
               Политика конфиденциальности
             </Link>
             <Link href="#" className="hover:text-white/60 transition-colors">
