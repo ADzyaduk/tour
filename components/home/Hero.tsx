@@ -124,7 +124,7 @@ export function Hero() {
           >
             <Link href="/yachts">
               <Anchor className="w-4 h-4" />
-              Арендовать яхту
+              Яхты и прогулки
             </Link>
           </Button>
         </motion.div>

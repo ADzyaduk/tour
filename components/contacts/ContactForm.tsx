@@ -27,8 +27,8 @@ import {
 
 const contactSchema = z.object({
   name: z.string().min(2, "Введите не менее 2 символов"),
-  email: z.string().email("Введите корректный email"),
-  phone: z.string().optional(),
+  email: z.string().email("Введите корректный email").optional().or(z.literal("")),
+  phone: z.string().min(1, "Введите номер телефона"),
   subject: z.string().min(1, "Выберите тему"),
   message: z
     .string()
@@ -126,7 +126,7 @@ export function ContactForm() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-5"
               >
-                {/* Name + Email */}
+                {/* Name + Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
@@ -149,16 +149,16 @@ export function ContactForm() {
                   />
                   <FormField
                     control={form.control}
-                    name="email"
+                    name="phone"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-navy text-sm font-medium">
-                          Email *
+                          Телефон *
                         </FormLabel>
                         <FormControl>
                           <Input
-                            type="email"
-                            placeholder="you@example.com"
+                            type="tel"
+                            placeholder="+7 988 123-45-67"
                             className="bg-sand border-border focus:border-teal h-11"
                             {...field}
                           />
@@ -169,23 +169,20 @@ export function ContactForm() {
                   />
                 </div>
 
-                {/* Phone + Subject */}
+                {/* Email + Subject */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
-                    name="phone"
+                    name="email"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-navy text-sm font-medium">
-                          Телефон{" "}
-                          <span className="text-muted-foreground font-normal">
-                            (необязательно)
-                          </span>
+                          Email
                         </FormLabel>
                         <FormControl>
                           <Input
-                            type="tel"
-                            placeholder="+7 988 123-45-67"
+                            type="email"
+                            placeholder="you@example.com"
                             className="bg-sand border-border focus:border-teal h-11"
                             {...field}
                           />
