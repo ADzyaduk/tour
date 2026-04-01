@@ -149,7 +149,7 @@ export function YachtShowcase() {
               <div className="font-display text-3xl font-semibold text-navy">
                 6 000 ₽
                 <span className="text-sm font-body text-muted-foreground ml-1">
-                  / час
+                  / час (включая экипаж)
                 </span>
               </div>
             </motion.div>

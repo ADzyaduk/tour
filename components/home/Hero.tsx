@@ -72,6 +72,8 @@ export function Hero() {
           className="mt-6 text-white/70 text-base sm:text-lg max-w-lg leading-relaxed font-body"
         >
           Экскурсии по Сочи и Абхазии, аренда яхт и морские прогулки на черноморском побережье.
+          <br />
+          Более 1 000 довольных гостей каждый сезон.
         </motion.p>
 
         {/* Stats */}
@@ -111,7 +113,7 @@ export function Hero() {
           >
             <Link href="/excursions">
               <Compass className="w-4 h-4" />
-              Смотреть экскурсии
+              Выбрать экскурсию
             </Link>
           </Button>
           <Button
@@ -122,7 +124,7 @@ export function Hero() {
           >
             <Link href="/yachts">
               <Anchor className="w-4 h-4" />
-              Яхты и прогулки
+              Арендовать яхту
             </Link>
           </Button>
         </motion.div>

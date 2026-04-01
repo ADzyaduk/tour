@@ -88,7 +88,7 @@ export function Header() {
               size="sm"
               className="bg-coral hover:bg-coral-dark text-white border-0 font-medium px-5 shadow-lg shadow-coral/25 hover:shadow-coral/40 transition-all"
             >
-              <Link href="/contacts">Забронировать</Link>
+              <Link href="/contacts">Оставить заявку</Link>
             </Button>
           </div>
 
@@ -163,7 +163,7 @@ export function Header() {
                     className="w-full bg-coral hover:bg-coral-dark text-white border-0 font-medium h-11"
                   >
                     <Link href="/contacts" onClick={() => setMobileOpen(false)}>
-                      Забронировать
+                      Оставить заявку
                     </Link>
                   </Button>
                 </div>

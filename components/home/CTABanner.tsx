@@ -45,7 +45,7 @@ export function CTABanner() {
             variants={fadeUpVariants}
             className="text-white/55 text-base sm:text-lg max-w-lg mx-auto leading-relaxed mb-10"
           >
-            Экскурсии, аренда яхт, морские прогулки — ваш идеальный отдых начинается с одного сообщения.
+            Наш менеджер свяжется с вами в течение 15 минут и подберёт лучший вариант отдыха.
           </motion.p>
 
           <motion.div
@@ -58,7 +58,7 @@ export function CTABanner() {
               className="bg-coral hover:bg-coral-dark text-white border-0 font-medium px-8 h-12 shadow-xl shadow-coral/30 gap-2 group"
             >
               <Link href="/contacts">
-                Начать планирование
+                Оставить заявку
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
