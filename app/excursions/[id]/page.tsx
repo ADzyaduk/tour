@@ -17,8 +17,16 @@ export async function generateMetadata({
   const excursion = excursions.find((e) => e.id === id)
   if (!excursion) return {}
   return {
-    title: `${excursion.title} — AquaVista`,
+    title: `${excursion.title} — от ${excursion.price.toLocaleString("ru-RU")} ₽`,
     description: excursion.description,
+    openGraph: {
+      title: `${excursion.title} | AquaVista Сочи`,
+      description: excursion.description,
+      type: "website",
+    },
+    alternates: {
+      canonical: `https://aquavista.ru/excursions/${excursion.id}`,
+    },
   }
 }
 

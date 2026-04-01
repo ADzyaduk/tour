@@ -20,9 +20,39 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "AquaVista — Экскурсии и морские прогулки в Сочи",
+  title: {
+    default: "AquaVista — Экскурсии и морские прогулки в Сочи",
+    template: "%s | AquaVista",
+  },
   description:
-    "Экскурсии по Сочи и Абхазии, аренда яхт и групповые морские прогулки. Незабываемый отдых на черноморском побережье.",
+    "Экскурсии по Сочи и Абхазии, аренда яхт и групповые морские прогулки. Более 1000 довольных гостей. Незабываемый отдых на черноморском побережье.",
+  keywords: [
+    "экскурсии Сочи",
+    "экскурсии Абхазия",
+    "аренда яхты Сочи",
+    "морские прогулки Сочи",
+    "яхты Адлер",
+    "туры Красная Поляна",
+    "33 водопада",
+    "озеро Рица",
+    "Новый Афон",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    url: "https://aquavista.ru",
+    siteName: "AquaVista",
+    title: "AquaVista — Экскурсии и морские прогулки в Сочи",
+    description:
+      "Экскурсии по Сочи и Абхазии, аренда яхт и групповые морские прогулки. Более 1000 довольных гостей.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://aquavista.ru",
+  },
 }
 
 export default function RootLayout({
@@ -33,6 +63,26 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body className="antialiased bg-background text-foreground font-body">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "TouristInformationCenter",
+              "name": "AquaVista",
+              "description": "Экскурсии по Сочи и Абхазии, аренда яхт и морские прогулки",
+              "url": "https://aquavista.ru",
+              "telephone": "+7 988 123-45-67",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Сочи",
+                "addressCountry": "RU"
+              },
+              "priceRange": "₽₽",
+              "areaServed": ["Сочи", "Адлер", "Абхазия"]
+            }),
+          }}
+        />
         <Header />
         <PageTransition>{children}</PageTransition>
         <Footer />
