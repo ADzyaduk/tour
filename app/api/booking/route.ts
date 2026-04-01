@@ -15,16 +15,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 })
   }
 
-  const { serviceName, serviceType, name, phone, date } = body as Record<string, string>
+  const { serviceName, serviceType, name, phone } = body as Record<string, string>
 
   if (!name || String(name).trim().length < 2) {
     return NextResponse.json({ error: "name required" }, { status: 400 })
   }
   if (!phone || !String(phone).trim()) {
     return NextResponse.json({ error: "phone required" }, { status: 400 })
-  }
-  if (!date) {
-    return NextResponse.json({ error: "date required" }, { status: 400 })
   }
 
   const typeLabel = serviceType === "yacht" ? "Яхта" : "Экскурсия"
@@ -36,7 +33,6 @@ export async function POST(request: Request) {
     `Услуга: ${String(serviceName).slice(0, 200)}`,
     `Имя: ${String(name).trim().slice(0, 100)}`,
     `Телефон: ${String(phone).trim().slice(0, 50)}`,
-    `Дата: ${String(date)}`,
   ].join("\n")
 
   const tgRes = await fetch(

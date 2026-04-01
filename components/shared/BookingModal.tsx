@@ -21,8 +21,6 @@ const ServiceIcon = ({ type }: { type: "yacht" | "excursion" }) =>
     <Compass className="w-3.5 h-3.5" />
   )
 
-const today = new Date().toISOString().split("T")[0]
-
 export function BookingModal({
   isOpen,
   onClose,
@@ -31,14 +29,12 @@ export function BookingModal({
 }: BookingModalProps) {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
-  const [date, setDate] = useState("")
   const [formState, setFormState] = useState<FormState>("idle")
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const reset = useCallback(() => {
     setName("")
     setPhone("")
-    setDate("")
     setFormState("idle")
     setErrors({})
   }, [])
@@ -67,7 +63,6 @@ export function BookingModal({
     const e: Record<string, string> = {}
     if (!name.trim() || name.trim().length < 2) e.name = "Введите имя (мин. 2 символа)"
     if (!phone.trim()) e.phone = "Введите номер телефона"
-    if (!date) e.date = "Выберите дату"
     return e
   }
 
@@ -81,7 +76,7 @@ export function BookingModal({
       const res = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ serviceName, serviceType, name: name.trim(), phone: phone.trim(), date }),
+        body: JSON.stringify({ serviceName, serviceType, name: name.trim(), phone: phone.trim() }),
       })
       if (!res.ok) throw new Error()
       setFormState("success")
@@ -289,22 +284,6 @@ export function BookingModal({
                         {errors.phone && <p className="text-xs mt-1" style={{ color: "#E05A3A" }}>{errors.phone}</p>}
                       </div>
 
-                      {/* Date */}
-                      <div>
-                        <label className="block text-xs font-medium mb-1.5" style={{ color: "#475569" }}>
-                          Желаемая дата <span style={{ color: "#E05A3A" }}>*</span>
-                        </label>
-                        <input
-                          type="date"
-                          value={date}
-                          min={today}
-                          onChange={(e) => { setDate(e.target.value); setErrors(p => ({ ...p, date: "" })) }}
-                          className={inputClass("date")}
-                          style={{ color: date ? "#0A1628" : "#94a3b8" } as React.CSSProperties}
-                        />
-                        {errors.date && <p className="text-xs mt-1" style={{ color: "#E05A3A" }}>{errors.date}</p>}
-                      </div>
-
                       {/* Submit */}
                       <button
                         type="submit"
@@ -318,9 +297,11 @@ export function BookingModal({
                             Отправка...
                           </>
                         ) : (
-                          "Отправить заявку"
+                          "Перезвоните мне"
                         )}
                       </button>
+
+                      <p className="text-center text-xs" style={{ color: "#94a3b8" }}>Мы свяжемся с вами в течение 15 минут</p>
 
                       <p className="text-center text-xs" style={{ color: "#94a3b8" }}>
                         Нажимая кнопку, вы соглашаетесь на обработку персональных данных
