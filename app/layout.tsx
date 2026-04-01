@@ -4,6 +4,7 @@ import "./globals.css"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { PageTransition } from "@/components/PageTransition"
+import { CookieBanner } from "@/components/shared/CookieBanner"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin", "cyrillic"],
@@ -86,6 +87,7 @@ export default function RootLayout({
         <Header />
         <PageTransition>{children}</PageTransition>
         <Footer />
+        <CookieBanner />
       </body>
     </html>
   )
