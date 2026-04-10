@@ -67,7 +67,7 @@ const reviewSchema = z.object({
     .string()
     .min(20, "Отзыв должен содержать не менее 20 символов")
     .max(1000, "Отзыв не должен превышать 1000 символов"),
-  consent: z.literal(true, { errorMap: () => ({ message: "Необходимо ваше согласие" }) }),
+  consent: z.literal(true, { error: "Необходимо ваше согласие" }),
 })
 
 type ReviewFormValues = z.infer<typeof reviewSchema>

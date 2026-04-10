@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(npx next:*)",
+      "Bash(npx tsc:*)",
+      "Bash(mv \"Без названия.webp\" \"sap-1.webp\")",
+      "Bash(mv \"Без названия \\(1\\).webp\" \"sap-2.webp\")",
+      "Bash(mv \"Без названия \\(2\\).webp\" \"sap-3.webp\")",
+      "Bash(mv \"Без названия \\(3\\).webp\" \"sap-4.webp\")"
+    ]
+  }
+}

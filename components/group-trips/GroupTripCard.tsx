@@ -61,13 +61,13 @@ export function GroupTripCard({ trip, index = 0 }: GroupTripCardProps) {
         </div>
 
         {/* Featured label */}
-        {trip.isFeatured && trip.featuredLabel && (
+        {trip.featuredLabel ? (
           <div className="absolute bottom-3 left-3">
             <span className="bg-gold/90 backdrop-blur-sm text-navy text-xs font-semibold px-2.5 py-1 rounded-full">
               {trip.featuredLabel}
             </span>
           </div>
-        )}
+        ) : null}
       </Link>
 
       {/* Body */}

@@ -13,30 +13,30 @@ import {
 } from "@/lib/animations"
 import { Button } from "@/components/ui/button"
 
-export function YachtShowcase() {
-  const features = [
-    {
-      Icon: Anchor,
-      title: "Опытные капитаны",
-      desc: "Лицензированные экипажи с многолетним опытом в черноморских водах.",
-    },
-    {
-      Icon: Users,
-      title: "Приватный чартер",
-      desc: "Только ваша компания на борту — без посторонних.",
-    },
-    {
-      Icon: Star,
-      title: "Сервис 5 звёзд",
-      desc: "Внимание к каждой детали от отплытия до возвращения.",
-    },
-    {
-      Icon: Sparkles,
-      title: "Индивидуальный маршрут",
-      desc: "Маршрут составляется под ваши желания и интересы.",
-    },
-  ]
+const features = [
+  {
+    Icon: Anchor,
+    title: "Опытные капитаны",
+    desc: "Лицензированные экипажи с многолетним опытом в черноморских водах.",
+  },
+  {
+    Icon: Users,
+    title: "Приватный чартер",
+    desc: "Только ваша компания на борту — без посторонних.",
+  },
+  {
+    Icon: Star,
+    title: "Сервис 5 звёзд",
+    desc: "Внимание к каждой детали от отплытия до возвращения.",
+  },
+  {
+    Icon: Sparkles,
+    title: "Индивидуальный маршрут",
+    desc: "Маршрут составляется под ваши желания и интересы.",
+  },
+]
 
+export function YachtShowcase() {
   return (
     <section className="py-20 lg:py-28 bg-navy overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

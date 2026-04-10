@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Phone } from "lucide-react"
 
 function TelegramIcon({ className }: { className?: string }) {
@@ -10,8 +11,7 @@ function TelegramIcon({ className }: { className?: string }) {
 
 function MaxIcon({ className }: { className?: string }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img src="/maxlogo.svg" alt="" aria-hidden="true" className={className} />
+    <Image src="/maxlogo.svg" alt="" aria-hidden width={16} height={16} className={className} />
   )
 }
 

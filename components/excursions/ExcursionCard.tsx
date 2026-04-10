@@ -72,11 +72,11 @@ export function ExcursionCard({ excursion, index = 0 }: ExcursionCardProps) {
             {excursion.rating}
           </span>
         </div>
-        {excursion.featuredLabel && (
+        {excursion.featuredLabel ? (
           <div className="absolute bottom-3 left-3 bg-gold/90 backdrop-blur-sm text-navy text-xs font-semibold px-2.5 py-1 rounded-full">
             {excursion.featuredLabel}
           </div>
-        )}
+        ) : null}
       </div>
       </Link>
 

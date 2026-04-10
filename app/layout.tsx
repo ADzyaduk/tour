@@ -46,6 +46,14 @@ export const metadata: Metadata = {
     title: "AquaVista — Экскурсии и морские прогулки в Сочи",
     description:
       "Экскурсии по Сочи и Абхазии, аренда яхт и групповые морские прогулки. Более 1000 довольных гостей.",
+    images: [
+      {
+        url: "https://aquavista.ru/hero.jpg",
+        width: 1200,
+        height: 630,
+        alt: "AquaVista — Экскурсии и морские прогулки в Сочи",
+      },
+    ],
   },
   robots: {
     index: true,
