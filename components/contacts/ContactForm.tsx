@@ -34,7 +34,7 @@ const contactSchema = z.object({
     .string()
     .min(10, "Сообщение должно содержать не менее 10 символов")
     .max(1000, "Сообщение не должно превышать 1000 символов"),
-  consent: z.literal(true, { errorMap: () => ({ message: "Необходимо ваше согласие" }) }),
+  consent: z.literal(true, { error: "Необходимо ваше согласие" }),
 })
 
 type ContactFormValues = z.infer<typeof contactSchema>
