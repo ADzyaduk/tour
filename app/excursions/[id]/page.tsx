@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { Clock, MapPin, Users, Star, Check, ArrowLeft, ChevronRight } from "lucide-react"
 import { BookingButton } from "@/components/shared/BookingButton"
 import { Button } from "@/components/ui/button"
+import { ExcursionFAQ } from "@/components/shared/ExcursionFAQ"
 import { excursions } from "@/lib/data"
 import { ImageGallery } from "@/components/ui/ImageGallery"
 import { ServiceTestimonials } from "@/components/shared/ServiceTestimonials"
@@ -23,6 +24,14 @@ export async function generateMetadata({
       title: `${excursion.title} | AquaVista Сочи`,
       description: excursion.description,
       type: "website",
+      images: [
+        {
+          url: `https://aquavista.ru${excursion.image}`,
+          width: 1200,
+          height: 630,
+          alt: excursion.title,
+        },
+      ],
     },
     alternates: {
       canonical: `https://aquavista.ru/excursions/${excursion.id}`,
@@ -90,7 +99,7 @@ export default async function ExcursionDetailPage({
               </div>
 
               {/* Title */}
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] font-light text-white leading-[1.1] mb-6">
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] font-light text-white leading-[1.1] mb-6 text-balance">
                 {excursion.title}
               </h1>
 
@@ -181,7 +190,7 @@ export default async function ExcursionDetailPage({
       {excursion.images.length > 1 && (
         <div className="bg-navy pb-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
-            <ImageGallery images={excursion.images} alt={excursion.title} />
+            <ImageGallery images={excursion.images.slice(1)} alt={excursion.title} />
           </div>
         </div>
       )}
@@ -191,7 +200,7 @@ export default async function ExcursionDetailPage({
         <div className="max-w-3xl mx-auto">
           {/* Full description */}
           <div className="mb-12">
-            <h2 className="font-display text-3xl sm:text-4xl font-light text-navy mb-6">
+            <h2 className="font-display text-3xl sm:text-4xl font-light text-navy mb-6 text-balance">
               Подробное <span className="text-gold italic">описание</span>
             </h2>
             <p className="text-navy/70 leading-relaxed text-base sm:text-lg">
@@ -201,7 +210,7 @@ export default async function ExcursionDetailPage({
 
           {/* Highlights */}
           <div>
-            <h2 className="font-display text-3xl sm:text-4xl font-light text-navy mb-6">
+            <h2 className="font-display text-3xl sm:text-4xl font-light text-navy mb-6 text-balance">
               Включено в <span className="text-gold italic">программу</span>
             </h2>
             <ul className="space-y-3">
@@ -218,6 +227,17 @@ export default async function ExcursionDetailPage({
         </div>
       </div>
 
+      {excursion.faq && excursion.faq.length > 0 && (
+        <div className="bg-sand pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="font-display text-3xl sm:text-4xl font-light text-navy mb-6 text-balance">
+              Частые <span className="text-gold italic">вопросы</span>
+            </h2>
+            <ExcursionFAQ faq={excursion.faq} />
+          </div>
+        </div>
+      )}
+
       <ServiceTestimonials serviceId={excursion.id} />
 
       {/* ── CTA ── */}
@@ -227,7 +247,7 @@ export default async function ExcursionDetailPage({
           <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gold/8 rounded-full blur-3xl translate-y-1/2" />
         </div>
         <div className="relative z-10">
-          <h3 className="font-display text-3xl sm:text-4xl font-light text-white mb-4">
+          <h3 className="font-display text-3xl sm:text-4xl font-light text-white mb-4 text-balance">
             Готовы к <span className="text-gold italic">приключению?</span>
           </h3>
           <p className="text-white/55 mb-8 max-w-md mx-auto leading-relaxed">
@@ -242,6 +262,22 @@ export default async function ExcursionDetailPage({
           </BookingButton>
         </div>
       </div>
+      {excursion.faq && excursion.faq.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: excursion.faq.map(({ q, a }) => ({
+                "@type": "Question",
+                name: q,
+                acceptedAnswer: { "@type": "Answer", text: a },
+              })),
+            }),
+          }}
+        />
+      )}
     </main>
   )
 }
