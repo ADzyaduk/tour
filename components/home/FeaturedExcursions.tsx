@@ -52,7 +52,12 @@ export function FeaturedExcursions() {
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {featured.map((excursion, i) => (
-            <ExcursionCard key={excursion.id} excursion={excursion} index={i} />
+            <ExcursionCard
+              key={excursion.id}
+              excursion={excursion}
+              index={i}
+              priority={i < 2}
+            />
           ))}
         </div>
       </div>

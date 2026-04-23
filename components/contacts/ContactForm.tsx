@@ -30,6 +30,7 @@ const contactSchema = z.object({
   email: z.string().email("Введите корректный email").optional().or(z.literal("")),
   phone: z.string().min(1, "Введите номер телефона"),
   subject: z.string().min(1, "Выберите тему"),
+  website: z.string().max(0).optional(),
   message: z
     .string()
     .min(10, "Сообщение должно содержать не менее 10 символов")
@@ -51,6 +52,7 @@ export function ContactForm() {
       email: "",
       phone: "",
       subject: "",
+      website: "",
       message: "",
       consent: undefined as unknown as true,
     },
@@ -128,6 +130,14 @@ export function ContactForm() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-5"
               >
+                <input
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute left-[-9999px] top-auto h-0 w-0 overflow-hidden"
+                  {...form.register("website")}
+                />
                 {/* Name + Phone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField

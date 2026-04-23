@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useForm } from "react-hook-form"
+import { useForm, useWatch } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { CheckCircle, AlertCircle, Loader2, Send, Star, Check } from "lucide-react"
@@ -63,6 +63,7 @@ const reviewSchema = z.object({
   rating: z.number().min(1, "Выберите оценку").max(5),
   serviceType: z.string().min(1, "Выберите тип услуги"),
   serviceId: z.string().min(1, "Выберите конкретную услугу"),
+  website: z.string().max(0).optional(),
   text: z
     .string()
     .min(20, "Отзыв должен содержать не менее 20 символов")
@@ -79,11 +80,19 @@ export function ReviewForm() {
 
   const form = useForm<ReviewFormValues>({
     resolver: zodResolver(reviewSchema),
-    defaultValues: { name: "", rating: 0, serviceType: "", serviceId: "", text: "", consent: undefined as unknown as true },
+    defaultValues: {
+      name: "",
+      rating: 0,
+      serviceType: "",
+      serviceId: "",
+      website: "",
+      text: "",
+      consent: undefined as unknown as true,
+    },
   })
 
-  const serviceType = form.watch("serviceType")
-  const rating = form.watch("rating")
+  const serviceType = useWatch({ control: form.control, name: "serviceType" })
+  const rating = useWatch({ control: form.control, name: "rating" })
   const serviceOptions = SERVICE_OPTIONS[serviceType] ?? []
 
   async function onSubmit(data: ReviewFormValues) {
@@ -102,7 +111,13 @@ export function ReviewForm() {
       const res = await fetch("/api/review", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: data.name, rating: data.rating, text: data.text, service }),
+        body: JSON.stringify({
+          name: data.name,
+          rating: data.rating,
+          text: data.text,
+          service,
+          website: data.website,
+        }),
       })
       const json = await res.json()
       setSubmitState(json.ok ? "success" : "error")
@@ -164,6 +179,14 @@ export function ReviewForm() {
 
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                <input
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute left-[-9999px] top-auto h-0 w-0 overflow-hidden"
+                  {...form.register("website")}
+                />
                 {/* Name */}
                 <FormField
                   control={form.control}

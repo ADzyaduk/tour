@@ -1,33 +1,61 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useSyncExternalStore } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Shield } from "lucide-react"
 import Link from "next/link"
 
 const CONSENT_KEY = "aq_cookie_consent"
+const CONSENT_EVENT = "aq-cookie-consent-change"
+const UNKNOWN_CONSENT = "__unknown__"
+const UNSET_CONSENT = "__unset__"
+
+const subscribe = (onStoreChange: () => void): (() => void) => {
+  const handleChange = (): void => {
+    onStoreChange()
+  }
+
+  window.addEventListener("storage", handleChange)
+  window.addEventListener(CONSENT_EVENT, handleChange)
+
+  return () => {
+    window.removeEventListener("storage", handleChange)
+    window.removeEventListener(CONSENT_EVENT, handleChange)
+  }
+}
+
+const getClientSnapshot = (): string =>
+  window.localStorage.getItem(CONSENT_KEY) ?? UNSET_CONSENT
+
+const getServerSnapshot = (): string => UNKNOWN_CONSENT
+
+const notifyConsentChange = (): void => {
+  window.dispatchEvent(new Event(CONSENT_EVENT))
+}
 
 export function CookieBanner() {
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const stored = localStorage.getItem(CONSENT_KEY)
-    if (!stored) setVisible(true)
-  }, [])
+  const consent = useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot
+  )
+  const visible = consent === UNSET_CONSENT
 
   function accept() {
     localStorage.setItem(CONSENT_KEY, "accepted")
-    setVisible(false)
+    notifyConsentChange()
   }
 
   function reject() {
     localStorage.setItem(CONSENT_KEY, "rejected")
-    setVisible(false)
+    notifyConsentChange()
   }
+
+  if (consent === UNKNOWN_CONSENT) return null
 
   return (
     <AnimatePresence>
-      {visible && (
+      {visible ? (
         <motion.div
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -82,7 +110,7 @@ export function CookieBanner() {
             </div>
           </div>
         </motion.div>
-      )}
+      ) : null}
     </AnimatePresence>
   )
 }

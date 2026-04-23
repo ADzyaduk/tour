@@ -5,7 +5,6 @@ import Link from "next/link"
 import { Clock, Users, Star } from "lucide-react"
 import { motion } from "framer-motion"
 import { fadeUpVariants, imageZoom } from "@/lib/animations"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import type { Excursion } from "@/lib/data"
 
@@ -26,9 +25,10 @@ const categoryLabels: Record<Excursion["category"], string> = {
 interface ExcursionCardProps {
   excursion: Excursion
   index?: number
+  priority?: boolean
 }
 
-export function ExcursionCard({ excursion, index = 0 }: ExcursionCardProps) {
+export function ExcursionCard({ excursion, index = 0, priority }: ExcursionCardProps) {
   return (
     <motion.div
       variants={fadeUpVariants}
@@ -40,44 +40,45 @@ export function ExcursionCard({ excursion, index = 0 }: ExcursionCardProps) {
     >
       {/* Image */}
       <Link href={`/excursions/${excursion.id}`} className="block">
-      <div className="relative h-52 overflow-hidden">
-        <motion.div
-          className="absolute inset-0"
-          initial="rest"
-          whileHover="hover"
-          animate="rest"
-          variants={imageZoom}
-        >
-          <Image
-            src={excursion.image}
-            alt={excursion.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
-        </motion.div>
-
-        {/* Overlay badges */}
-        <div className="absolute inset-0 bg-linear-to-t from-navy/60 via-transparent to-transparent pointer-events-none" />
-        <div className="absolute top-3 left-3">
-          <span
-            className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border backdrop-blur-sm ${categoryColors[excursion.category]}`}
+        <div className="relative h-52 overflow-hidden img-golden-hour">
+          <motion.div
+            className="absolute inset-0"
+            initial="rest"
+            whileHover="hover"
+            animate="rest"
+            variants={imageZoom}
           >
-            {categoryLabels[excursion.category]}
-          </span>
-        </div>
-        <div className="absolute top-3 right-3 flex items-center gap-1 bg-navy/70 backdrop-blur-sm rounded-full px-2.5 py-1">
-          <Star className="w-3 h-3 text-gold fill-gold" />
-          <span className="text-white text-xs font-medium">
-            {excursion.rating}
-          </span>
-        </div>
-        {excursion.featuredLabel ? (
-          <div className="absolute bottom-3 left-3 bg-gold/90 backdrop-blur-sm text-navy text-xs font-semibold px-2.5 py-1 rounded-full">
-            {excursion.featuredLabel}
+            <Image
+              src={excursion.image}
+              alt={excursion.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              priority={priority}
+            />
+          </motion.div>
+
+          {/* Overlay badges */}
+          <div className="absolute inset-0 bg-linear-to-t from-navy/80 via-transparent to-transparent pointer-events-none z-20" />
+          <div className="absolute top-3 left-3 z-30">
+            <span
+              className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border backdrop-blur-sm ${categoryColors[excursion.category]}`}
+            >
+              {categoryLabels[excursion.category]}
+            </span>
           </div>
-        ) : null}
-      </div>
+          <div className="absolute top-3 right-3 flex items-center gap-1 bg-navy/70 backdrop-blur-sm rounded-full px-2.5 py-1 z-30">
+            <Star className="w-3 h-3 text-gold fill-gold" />
+            <span className="text-white text-xs font-medium">
+              {excursion.rating}
+            </span>
+          </div>
+          {excursion.featuredLabel ? (
+            <div className="absolute bottom-3 left-3 bg-gold/90 backdrop-blur-sm text-navy text-xs font-semibold px-2.5 py-1 rounded-full z-30">
+              {excursion.featuredLabel}
+            </div>
+          ) : null}
+        </div>
       </Link>
 
       {/* Body */}

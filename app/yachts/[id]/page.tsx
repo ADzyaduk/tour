@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation"
-import Image from "next/image"
 import Link from "next/link"
 import { yachts, type Yacht } from "@/lib/data"
 import { ImageGallery } from "@/components/ui/ImageGallery"

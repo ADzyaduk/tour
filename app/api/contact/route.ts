@@ -1,4 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
+import {
+  getTrimmedString,
+  protectPublicFormRoute,
+} from "@/lib/server/form-protection"
 
 const subjectLabels: Record<string, string> = {
   general: "Общий вопрос",
@@ -10,12 +14,18 @@ const subjectLabels: Record<string, string> = {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json()
+    const body = (await req.json()) as Record<string, unknown>
+    const protectionResponse = protectPublicFormRoute(req, body)
+    if (protectionResponse) {
+      return protectionResponse
+    }
+
     const { name, email, phone, subject, message } = body
+    const normalizedEmail = getTrimmedString(email)
 
     if (
       typeof name !== "string" || name.trim().length < 2 ||
-      typeof email !== "string" || !email.includes("@") ||
+      (normalizedEmail.length > 0 && !normalizedEmail.includes("@")) ||
       typeof subject !== "string" || subject.trim().length === 0 ||
       typeof message !== "string" || message.trim().length < 10 || message.length > 1000
     ) {
@@ -31,19 +41,20 @@ export async function POST(req: NextRequest) {
 
     const subjectLabel = subjectLabels[subject] ?? subject
     const phoneStr = phone && typeof phone === "string" ? `\nТелефон: ${phone}` : ""
+    const emailStr = normalizedEmail ? `Email: ${normalizedEmail}` : ""
 
     const text = [
       "Новая заявка с сайта AquaVista",
       "",
       `Имя: ${name.trim()}`,
-      `Email: ${email.trim()}`,
+      emailStr,
       phoneStr,
       `Тема: ${subjectLabel}`,
       "",
       "Сообщение:",
       message.trim(),
     ]
-      .filter((line) => line !== undefined)
+      .filter(Boolean)
       .join("\n")
 
     const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {

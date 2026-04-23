@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X, Anchor, Phone } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -12,6 +12,9 @@ import {
   SheetContent,
   SheetTrigger,
   SheetClose,
+  SheetTitle,
+  SheetDescription,
+  SheetHeader,
 } from "@/components/ui/sheet"
 
 const navLinks = [
@@ -108,21 +111,26 @@ export function Header() {
             >
               <div className="flex flex-col h-full">
                 {/* Header */}
-                <div className="flex items-center justify-between px-6 py-5 border-b border-gold/15">
-                  <Link
-                    href="/"
-                    onClick={() => setMobileOpen(false)}
-                    className="flex items-center gap-2"
-                  >
-                    <Anchor className="w-5 h-5 text-gold" strokeWidth={1.5} />
-                    <span className="font-display text-lg font-semibold text-white">
-                      Aqua<span className="text-gold">Vista</span>
-                    </span>
-                  </Link>
+                <SheetHeader className="px-6 py-5 border-b border-gold/15 flex-row items-center justify-between space-y-0">
+                  <SheetTitle asChild>
+                    <Link
+                      href="/"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-2 text-left"
+                    >
+                      <Anchor className="w-5 h-5 text-gold" strokeWidth={1.5} />
+                      <span className="font-display text-lg font-semibold text-white">
+                        Aqua<span className="text-gold">Vista</span>
+                      </span>
+                    </Link>
+                  </SheetTitle>
+                  <SheetDescription className="sr-only">
+                    Навигационное меню сайта AquaVista для мобильных устройств
+                  </SheetDescription>
                   <SheetClose className="p-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-colors">
                     <X className="w-5 h-5" />
                   </SheetClose>
-                </div>
+                </SheetHeader>
 
                 {/* Nav links */}
                 <nav className="flex-1 px-4 py-6 space-y-1">

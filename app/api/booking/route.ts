@@ -1,6 +1,10 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
+import {
+  getTrimmedString,
+  protectPublicFormRoute,
+} from "@/lib/server/form-protection"
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const token = process.env.TELEGRAM_BOT_TOKEN
   const chatId = process.env.TELEGRAM_CHAT_ID
 
@@ -12,16 +16,24 @@ export async function POST(request: Request) {
   try {
     body = await request.json()
   } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 })
+    return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 })
+  }
+
+  const protectionResponse = protectPublicFormRoute(request, body)
+  if (protectionResponse) {
+    return protectionResponse
   }
 
   const { serviceName, serviceType, name, phone } = body as Record<string, string>
+  const normalizedName = getTrimmedString(name)
+  const normalizedPhone = getTrimmedString(phone)
+  const normalizedServiceName = getTrimmedString(serviceName)
 
-  if (!name || String(name).trim().length < 2) {
-    return NextResponse.json({ error: "name required" }, { status: 400 })
+  if (normalizedName.length < 2) {
+    return NextResponse.json({ ok: false, error: "name required" }, { status: 400 })
   }
-  if (!phone || !String(phone).trim()) {
-    return NextResponse.json({ error: "phone required" }, { status: 400 })
+  if (!normalizedPhone) {
+    return NextResponse.json({ ok: false, error: "phone required" }, { status: 400 })
   }
 
   const typeLabel = serviceType === "yacht" ? "Яхта" : "Экскурсия"
@@ -30,9 +42,9 @@ export async function POST(request: Request) {
     "Новая заявка на бронирование",
     "",
     `Тип: ${typeLabel}`,
-    `Услуга: ${String(serviceName).slice(0, 200)}`,
-    `Имя: ${String(name).trim().slice(0, 100)}`,
-    `Телефон: ${String(phone).trim().slice(0, 50)}`,
+    `Услуга: ${normalizedServiceName.slice(0, 200)}`,
+    `Имя: ${normalizedName.slice(0, 100)}`,
+    `Телефон: ${normalizedPhone.slice(0, 50)}`,
   ].join("\n")
 
   const tgRes = await fetch(
@@ -45,7 +57,7 @@ export async function POST(request: Request) {
   )
 
   if (!tgRes.ok) {
-    return NextResponse.json({ error: "Telegram error" }, { status: 502 })
+    return NextResponse.json({ ok: false, error: "Telegram error" }, { status: 502 })
   }
 
   return NextResponse.json({ ok: true })

@@ -24,7 +24,7 @@ export function GroupTripCard({ trip, index = 0 }: GroupTripCardProps) {
       className="group bg-white rounded-2xl overflow-hidden border border-sand-dark shadow-[0_2px_12px_rgba(10,22,40,0.06)] hover:shadow-[0_12px_40px_rgba(10,22,40,0.14)] transition-shadow duration-300 flex flex-col"
     >
       {/* Image */}
-      <Link href={`/yachts/group/${trip.id}`} className="block relative h-52 overflow-hidden shrink-0">
+      <Link href={`/yachts/group/${trip.id}`} className="block relative h-52 overflow-hidden shrink-0 img-golden-hour">
         <motion.div
           className="absolute inset-0"
           initial="rest"
@@ -42,10 +42,10 @@ export function GroupTripCard({ trip, index = 0 }: GroupTripCardProps) {
         </motion.div>
 
         {/* Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-t from-navy/80 via-transparent to-transparent pointer-events-none z-20" />
 
         {/* Port badge top-left */}
-        <div className="absolute top-3 left-3">
+        <div className="absolute top-3 left-3 z-30">
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border backdrop-blur-sm bg-teal/15 text-teal border-teal/25">
             <Anchor className="w-3 h-3" />
             {trip.port}
@@ -53,7 +53,7 @@ export function GroupTripCard({ trip, index = 0 }: GroupTripCardProps) {
         </div>
 
         {/* Duration badge top-right */}
-        <div className="absolute top-3 right-3">
+        <div className="absolute top-3 right-3 z-30">
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border backdrop-blur-sm bg-gold/15 text-gold border-gold/25">
             <Clock className="w-3 h-3" />
             {trip.duration}
@@ -62,7 +62,7 @@ export function GroupTripCard({ trip, index = 0 }: GroupTripCardProps) {
 
         {/* Featured label */}
         {trip.featuredLabel ? (
-          <div className="absolute bottom-3 left-3">
+          <div className="absolute bottom-3 left-3 z-30">
             <span className="bg-gold/90 backdrop-blur-sm text-navy text-xs font-semibold px-2.5 py-1 rounded-full">
               {trip.featuredLabel}
             </span>

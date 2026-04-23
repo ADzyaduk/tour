@@ -1,9 +1,19 @@
 import { NextRequest, NextResponse } from "next/server"
+import {
+  getTrimmedString,
+  protectPublicFormRoute,
+} from "@/lib/server/form-protection"
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json()
+    const body = (await req.json()) as Record<string, unknown>
+    const protectionResponse = protectPublicFormRoute(req, body)
+    if (protectionResponse) {
+      return protectionResponse
+    }
+
     const { name, rating, text, service } = body
+    const normalizedService = getTrimmedString(service)
 
     if (
       typeof name !== "string" || name.trim().length < 2 ||
@@ -22,7 +32,7 @@ export async function POST(req: NextRequest) {
 
     const clampedRating = Math.min(5, Math.max(1, Math.round(rating)))
     const stars = "⭐".repeat(clampedRating)
-    const serviceStr = service && typeof service === "string" ? `\nУслуга: ${service}` : ""
+    const serviceStr = normalizedService ? `\nУслуга: ${normalizedService}` : ""
 
     const message = [
       `${stars} Новый отзыв на AquaVista`,

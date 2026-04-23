@@ -123,7 +123,7 @@ export function YachtShowcase() {
               whileHover="hover"
               animate="rest"
               variants={imageZoom}
-              className="relative h-80 sm:h-96 lg:h-130 rounded-2xl overflow-hidden"
+              className="relative h-80 sm:h-96 lg:h-130 rounded-2xl overflow-hidden img-golden-hour"
             >
               <Image
                 src="/img/yachts/sochi/indigo/indigo1.webp"
@@ -132,7 +132,7 @@ export function YachtShowcase() {
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-linear-to-t from-navy/50 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-navy/80 via-transparent to-transparent z-20" />
             </motion.div>
 
             {/* Floating stat card */}

@@ -29,6 +29,7 @@ export function BookingModal({
 }: BookingModalProps) {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
+  const [website, setWebsite] = useState("")
   const [consent, setConsent] = useState(false)
   const [formState, setFormState] = useState<FormState>("idle")
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -36,6 +37,7 @@ export function BookingModal({
   const reset = useCallback(() => {
     setName("")
     setPhone("")
+    setWebsite("")
     setConsent(false)
     setFormState("idle")
     setErrors({})
@@ -79,7 +81,13 @@ export function BookingModal({
       const res = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ serviceName, serviceType, name: name.trim(), phone: phone.trim() }),
+        body: JSON.stringify({
+          serviceName,
+          serviceType,
+          name: name.trim(),
+          phone: phone.trim(),
+          website,
+        }),
       })
       if (!res.ok) throw new Error()
       setFormState("success")
@@ -237,6 +245,16 @@ export function BookingModal({
                       noValidate
                       className="px-6 pt-5 pb-6 space-y-4"
                     >
+                      <input
+                        type="text"
+                        name="website"
+                        value={website}
+                        onChange={(event) => setWebsite(event.target.value)}
+                        tabIndex={-1}
+                        autoComplete="off"
+                        aria-hidden="true"
+                        className="absolute left-[-9999px] top-auto h-0 w-0 overflow-hidden"
+                      />
                       {/* Error banner */}
                       <AnimatePresence>
                         {formState === "error" && (

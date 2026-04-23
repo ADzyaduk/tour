@@ -42,7 +42,7 @@ export function YachtCard({ yacht, index = 0 }: YachtCardProps) {
     >
       {/* Image */}
       <Link href={`/yachts/${yacht.id}`} className="block">
-        <div className="relative h-52 overflow-hidden">
+        <div className="relative h-52 overflow-hidden img-golden-hour">
           <motion.div
             className="absolute inset-0"
             initial="rest"
@@ -58,10 +58,10 @@ export function YachtCard({ yacht, index = 0 }: YachtCardProps) {
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </motion.div>
-          <div className="absolute inset-0 bg-linear-to-t from-navy/60 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-linear-to-t from-navy/80 via-transparent to-transparent pointer-events-none z-20" />
 
           {/* Type + port badges */}
-          <div className="absolute top-3 left-3 flex gap-1.5">
+          <div className="absolute top-3 left-3 flex gap-1.5 z-30">
             <span
               className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border backdrop-blur-sm ${typeColors[yacht.type]}`}
             >
@@ -74,7 +74,7 @@ export function YachtCard({ yacht, index = 0 }: YachtCardProps) {
           </div>
 
           {/* Name overlay at bottom */}
-          <div className="absolute bottom-3 left-4">
+          <div className="absolute bottom-3 left-4 z-30">
             <h3 className="font-display text-2xl font-semibold text-white drop-shadow-lg">
               {yacht.name}
             </h3>
@@ -127,11 +127,11 @@ export function YachtCard({ yacht, index = 0 }: YachtCardProps) {
               {f}
             </span>
           ))}
-          {yacht.features.length > 4 && (
+          {yacht.features.length > 4 ? (
             <span className="inline-flex items-center text-xs text-teal px-2.5 py-1 rounded-full bg-teal/10">
               +{yacht.features.length - 4} ещё
             </span>
-          )}
+          ) : null}
         </div>
 
         {/* CTA */}
